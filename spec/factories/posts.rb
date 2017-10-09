@@ -3,6 +3,6 @@ FactoryGirl.define do
     author { Faker::Name.name }
     title { Faker::Lorem.sentence }
     body { Faker::Lorem.paragraphs }
-    category_id nil
+    category
   end
 end
