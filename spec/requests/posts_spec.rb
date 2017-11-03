@@ -4,6 +4,17 @@ RSpec.describe 'Posts API', type: :request do
   let!(:posts) { create_list(:post, 10) }
   let(:post_id) { posts.first.id }
 
+  describe 'GET /posts/:id/comments' do
+    let!(:comments) { create_list(:comment, 10, post_id: post_id) }
+
+    before { get "/posts/#{post_id}/comments" }
+
+    it 'returns comments' do
+      expect(json).not_to be_empty
+      expect(json.size).to eq(10)
+    end
+  end
+
   describe 'GET /posts' do
     before { get '/posts' }
 
@@ -74,7 +85,7 @@ RSpec.describe 'Posts API', type: :request do
     context 'when the request is valid' do
       before { post '/posts', params: valid_attributes }
 
-      it 'creates a todo' do
+      it 'creates a post' do
         expect(json['title']).to eq('Learn Elm')
       end
 
@@ -110,8 +121,8 @@ RSpec.describe 'Posts API', type: :request do
         expect(first_post.vote_score).to eq(original_vote_score + 1)
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -124,8 +135,8 @@ RSpec.describe 'Posts API', type: :request do
         expect(first_post.vote_score).to eq(original_vote_score - 1)
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -138,8 +149,8 @@ RSpec.describe 'Posts API', type: :request do
         expect(first_post.vote_score).to eq(original_vote_score)
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
 
@@ -152,11 +163,11 @@ RSpec.describe 'Posts API', type: :request do
       before { put "/posts/#{post_id}", params: valid_attributes }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
+        expect(json['title']).to eq('Learn Elm 2.0')
       end
 
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
   end

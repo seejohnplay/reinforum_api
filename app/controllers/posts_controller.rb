@@ -7,14 +7,14 @@ class PostsController < ApplicationController
   end
 
   def by_category
-    category = Category.find_by_name params[:category]
+    category = Category.find_by_url params[:category]
     @posts = Post.where(category: category)
     json_response(@posts)
   end
 
   def create
     if category_id = params[:category_id]
-      category = Category.find category_id 
+      category = Category.find category_id.to_i
     end
     @post = Post.create!(post_params.merge(category: category))
     json_response(@post, :created)
@@ -26,18 +26,23 @@ class PostsController < ApplicationController
 
   def update
     @post.update(post_params)
-    head :no_content
+    json_response(@post)
   end
 
   def update_vote_score
     vote = params[:option] == 'upvote' ? 1 : params[:option] == 'downvote' ? -1 : 0
     @post.update_attribute(:vote_score, @post.vote_score + vote)
-    head :no_content
+    json_response(@post)
   end
 
   def destroy
     @post.destroy
     head :no_content
+  end
+
+  def comments
+    comments = Comment.where(post_id: params[:id])
+    json_response(comments)
   end
 
   private
