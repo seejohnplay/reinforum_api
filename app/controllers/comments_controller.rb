@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
-	before_action :set_comment, only: [:show, :update_vote_score, :update, :destroy]
+  before_action :set_comment, only: [:show, :update_vote_score, :update, :destroy]
 
-	def show
-		json_response(@comment)
-	end
+  def show
+    json_response(@comment)
+  end
 
   def create
     if post_id = params[:post_id]
@@ -25,13 +25,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-		@comment.destroy
-		head :no_content
+    @comment.destroy
+    head :no_content
   end
 
-	private
+  private
 
-	def comment_params
+  def comment_params
     params.permit(:author, :body, :post_id)
   end
 

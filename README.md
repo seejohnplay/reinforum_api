@@ -1,24 +1,15 @@
-# README
+# Reinforum API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Description
+A Rails 5 API backend server for a post-and-comment web app to share content and ideas between a community of people who have common interests. Users can post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users can also edit and delete their posts and comments.
 
-Things you may want to cover:
+### Running the application
+```
+$ git clone <repo>
+$ cd reinforum_api
+$ bundle install
+$ rails s (-p 5001)
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Technologies Used
+Rails 5, Ruby 2, RSpec

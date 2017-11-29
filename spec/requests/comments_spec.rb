@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Comments API', type: :request do
-	let(:comments) { create_list(:comment, 10) }
-	let(:comment_id) { comments.first.id }
+  let(:comments) { create_list(:comment, 10) }
+  let(:comment_id) { comments.first.id }
 
-	describe 'GET /comments/:id' do
+  describe 'GET /comments/:id' do
     before { get "/comments/#{comment_id}" }
 
     context 'when the record exists' do
